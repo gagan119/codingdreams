@@ -1,0 +1,65 @@
+package to.uk.gagandeepbali.swing.messenger.gui;
+
+import java.awt.BorderLayout;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
+public class MessengerFrame extends JFrame
+{
+	private static final String NIMBUS = "javax.swing.plaf.nimbus.NimbusLookAndFeel";
+	//private static final String NIMBUS = "com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel";
+	
+	private MessengerPanel contentPane;	
+	
+	public MessengerFrame()
+	{
+		super("Messenger");
+	}
+	
+	private void createAndDisplayGUI()
+	{
+		contentPane = new MessengerPanel();
+		contentPane.createGUI();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setJMenuBar(contentPane.createMenuBar());
+		setContentPane(contentPane);
+		pack();
+		//setResizable(false);
+		setLocationByPlatform(true);
+		setVisible(true);
+		System.out.println("Size : " + getSize());
+	}
+	
+	public static void main(String... args)
+	{
+		SwingUtilities.invokeLater(new Runnable()
+		{
+			public void run()
+			{
+				try
+				{
+					UIManager.setLookAndFeel(NIMBUS);
+				}
+				catch(UnsupportedLookAndFeelException ulafe)
+				{
+					ulafe.printStackTrace();
+				}
+				catch(ClassNotFoundException cnfe)
+				{
+					cnfe.printStackTrace();
+				}
+				catch(InstantiationException ie)
+				{
+					ie.printStackTrace();
+				}
+				catch(IllegalAccessException iae)
+				{
+					iae.printStackTrace();
+				}
+				new MessengerFrame().createAndDisplayGUI();
+			}
+		});
+	}
+}
